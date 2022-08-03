@@ -1,0 +1,6 @@
+/API_CREDENTIALS
+/build
+/node_modules
+/web-ext-artifacts
+*.js
+*.zip

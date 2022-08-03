@@ -1,0 +1,32 @@
+{ "manifest_version": 2
+, "name": "LIMDberator"
+, "version": "0.1"
+, "description": "Liberate data from IMDb"
+, "browser_specific_settings":
+    { "gecko":
+        { "id": "{b399d9d2-9922-49ec-9b59-689de7aabcb1}"
+        }
+    }
+, "permissions":
+    [ "<all_urls>"
+    , "notifications"
+    ]
+, "background":
+    { "scripts":
+        [ "background.js"
+        ]
+    }
+, "content_scripts":
+    [ { "matches":
+          [ "*://*.imdb.com/name/*"
+          , "*://*.imdb.com/title/*"
+          ]
+      , "js":
+          [ "content.js"
+          ]
+      , "css":
+          [ "content.css"
+          ]
+      }
+    ]
+}
