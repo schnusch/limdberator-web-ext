@@ -34,6 +34,12 @@ export type ScrapedPerson = {
     filmography?: Filmography,
 }
 
+export type ScrapeResult = {
+    title: ScrapedTitle
+} | {
+    person: ScrapedPerson
+}
+
 export type BackgroundStatus = {
     error?: string,
     success?: string,
@@ -274,7 +280,7 @@ function set_if_not_null<T, K extends keyof T>(obj: T, key: K, value: T[K] | nul
     }
 }
 
-export function scrape(): ScrapedTitle|ScrapedPerson|null {
+export function scrape(): ScrapeResult|null {
     let non_empty = false
     let id: string|null = null
     if((id = get_title_id())) {
@@ -291,7 +297,7 @@ export function scrape(): ScrapedTitle|ScrapedPerson|null {
         set_if_not_null(result, "duration",       get_duration())
         set_if_not_null(result, "languages",      get_languages())
         if(Object.keys(result).length > 2) {
-            return result
+            return {title: result}
         }
     } else if((id = get_person_id())) {
         let result: ScrapedPerson = {
@@ -302,7 +308,7 @@ export function scrape(): ScrapedTitle|ScrapedPerson|null {
         set_if_not_null(result, "birthday",    get_birthday())
         set_if_not_null(result, "filmography", get_filmography())
         if(Object.keys(result).length > 2) {
-            return result
+            return {person: result}
         }
     }
     return null
