@@ -21,7 +21,7 @@ type FilmCredit = {
     tags: string[],
     title_info: {
         title?: string,
-        year?: number,
+        year?: string,
         tags: string[],
     },
 }
@@ -301,7 +301,7 @@ export function get_filmography(): Filmography {
 
         const year_elem = elem.querySelector(".year_column")
         if(year_elem && year_elem.textContent) {
-            credit.title_info.year = parseInt(year_elem.textContent.normalize_whitespace(), 10)
+            credit.title_info.year = year_elem.textContent.normalize_whitespace()
         }
 
         const credit_tags = new Set(credit.tags)
