@@ -80,7 +80,7 @@ function find_leaves(elem: Element): Element[] {
 
 function create_id_getter(re: RegExp): (() => string|null) {
     return (): string|null => {
-        const m = location.href.match(re)
+        const m = location.pathname.match(re)
         if(!m) {
             return null
         }
@@ -97,7 +97,7 @@ function is_child_node(child: Node|null, parent: Node): boolean {
     return false
 }
 
-export const get_title_id = create_id_getter(/title\/(tt\d+)/)
+export const get_title_id = create_id_getter(/^\/title\/(tt\d+)(\/fullcredits)?\/?$/)
 
 export function get_title(): string|null {
     const h1 = document.querySelector("h1")
@@ -223,7 +223,7 @@ export function get_writers(): CastMember[] {
 }
 
 export function get_cast(): CastMember[] {
-    const cast: CastMember[] = get_fullcredits("#cast")
+    const cast = get_fullcredits("#cast")
     if(cast.length > 0) {
         return cast
     }
@@ -259,7 +259,7 @@ export function get_languages(): string[] {
     return langs
 }
 
-export const get_person_id = create_id_getter(/name\/(nm\d+)/)
+export const get_person_id = create_id_getter(/^\/name\/(nm\d+)\/?$/)
 
 export const get_name = get_title
 
